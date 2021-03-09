@@ -53,6 +53,8 @@ public class SignupActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                        startActivity(intent); // Go to main page
 
                                     } else {
                                         // If sign in fails, display a message to the user.
@@ -88,7 +90,7 @@ public class SignupActivity extends AppCompatActivity {
     boolean areFieldsFilled(TextView userField, TextView emailField, TextView passField) { // checks if all the fields are filled and valid
         Boolean filledFields = true; // if all fields are filled
 
-        if (TextUtils.isEmpty(userField.getText().toString())) {
+        if (TextUtils.isEmpty(userField.getText().toString())) { // if username field is empty
             userField.setError("username field can't be empty");
             filledFields = false;
         }

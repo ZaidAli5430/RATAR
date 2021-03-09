@@ -26,6 +26,13 @@ public class LoginActivity extends AppCompatActivity {
         // Firebase auth instance to be created here
         mAuth = FirebaseAuth.getInstance();
 
+        if(mAuth.getCurrentUser()!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
         TextView loginBtn = findViewById(R.id.loginBtn); // Login button
 
         // Listener for Login button
