@@ -16,7 +16,7 @@ public class ResetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset);
 
-        Button resetBtn = findViewById(R.id.signUpBtn);
+        Button resetBtn = findViewById(R.id.loginBtn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
