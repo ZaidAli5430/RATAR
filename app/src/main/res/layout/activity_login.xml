@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     app:layout_constraintCircleRadius="@dimen/cardview_default_radius"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
 
     <LinearLayout

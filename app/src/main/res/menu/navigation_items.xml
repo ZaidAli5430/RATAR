@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_nav"
+        android:icon="@drawable/bottom_nav_home_icon"
+        android:title="Home"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/forum_nav"
+        android:icon="@drawable/bottom_nav_forum_icon"
+        android:title="Forum"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/profile_nav"
+        android:icon="@drawable/bottom_nav_profile_icon"
+        android:title="Profile"
+        android:enabled="true"
+        />
+
+</menu>

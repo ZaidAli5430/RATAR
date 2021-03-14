@@ -28,5 +28,20 @@
         android:layout_marginEnd="48dp"
         android:text="Sign Out"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="48dp" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="360dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigation_items"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
