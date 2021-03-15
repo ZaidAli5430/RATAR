@@ -23,13 +23,13 @@ public class HomeFragment extends Fragment {
 
 
 
-        Button joinChannelButton = HomeView.findViewById(R.id.joinChannelBtn);
+        Button joinChannelButton = HomeView.findViewById(R.id.postForumBtn);
         Button createChannelButton = HomeView.findViewById(R.id.createChannelBtn);
 
         joinChannelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView joinCodeField = HomeView.findViewById(R.id.joinCodeField);
+                TextView joinCodeField = HomeView.findViewById(R.id.problemField);
 
                 String joinCode = joinCodeField.getText().toString();
 
