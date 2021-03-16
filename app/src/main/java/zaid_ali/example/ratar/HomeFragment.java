@@ -34,17 +34,27 @@ public class HomeFragment extends Fragment {
                 String joinCode = joinCodeField.getText().toString();
 
                 if(areFieldsFilled(joinCodeField)){
+
+
                     Intent intent = new Intent(getActivity(), VideoCallActivity.class);
+                    intent.putExtra("joinCode", joinCode);  // sending the entered join Code to next activity
                     startActivity(intent);
                 }
 
             }
         });
 
+
         createChannelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int randomChannelCode = (int)(Math.random() * 999999) + 100000;
+
+                String channelCode = randomChannelCode + "";
+
                 Intent intent = new Intent(getActivity(), VideoCallActivity.class);
+                intent.putExtra("channelCode", channelCode);
                 startActivity(intent);
             }
         });
