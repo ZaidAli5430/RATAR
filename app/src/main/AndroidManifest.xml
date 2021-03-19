@@ -10,11 +10,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
-
     <uses-feature
         android:name="android.hardware.camera.ar"
         android:required="true" />
-
 
     <application
         android:allowBackup="true"
@@ -23,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RATAR">
-        <activity android:name=".VideoCallActivity"></activity>
+        <activity android:name=".UserVideoActivity"></activity>
+        <activity android:name=".HelperVideoActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -33,12 +32,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />

@@ -21,8 +21,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View HomeView = inflater.inflate(R.layout.fragment_home,null);
 
-
-
         Button joinChannelButton = HomeView.findViewById(R.id.postForumBtn);
         Button createChannelButton = HomeView.findViewById(R.id.createChannelBtn);
 
@@ -35,9 +33,8 @@ public class HomeFragment extends Fragment {
 
                 if(areFieldsFilled(joinCodeField)){
 
-
-                    Intent intent = new Intent(getActivity(), VideoCallActivity.class);
-                    intent.putExtra("joinCode", joinCode);  // sending the entered join Code to next activity
+                    Intent intent = new Intent(getActivity(), HelperVideoActivity.class);
+//                    intent.putExtra("joinCode", joinCode);  // sending the entered join Code to next activity
                     startActivity(intent);
                 }
 
@@ -53,7 +50,7 @@ public class HomeFragment extends Fragment {
 
                 String channelCode = randomChannelCode + "";
 
-                Intent intent = new Intent(getActivity(), VideoCallActivity.class);
+                Intent intent = new Intent(getActivity(), UserVideoActivity.class);
                 intent.putExtra("channelCode", channelCode);
                 startActivity(intent);
             }
@@ -61,7 +58,6 @@ public class HomeFragment extends Fragment {
 
         return HomeView;
     }
-
 
     boolean areFieldsFilled(TextView joinCodeField) { // checks if all the fields are filled and valid
         Boolean filledFields = true; // if all fields are filled
