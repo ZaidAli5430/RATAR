@@ -1,8 +1,10 @@
 package zaid_ali.example.ratar;
 
 import android.content.Intent;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -19,8 +21,20 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
 
-public  class UserVideoActivity extends AppCompatActivity {
+import java.io.IOException;
 
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
+import zaid_ali.example.ratar.rendering.BackgroundRenderer;
+import zaid_ali.example.ratar.rendering.ObjectRenderer;
+import zaid_ali.example.ratar.rendering.PeerRenderer;
+import zaid_ali.example.ratar.rendering.PlaneRenderer;
+import zaid_ali.example.ratar.rendering.PointCloudRenderer;
+
+public class UserVideoActivity extends AppCompatActivity implements GLSurfaceView.Renderer {
+
+    private static final String TAG = "APP";
     private boolean isMuted = false;
     private ImageView muteBtn;
     private boolean isCalling = true;
@@ -28,12 +42,12 @@ public  class UserVideoActivity extends AppCompatActivity {
     private Snackbar mMessageSnackbar;
 
     private Session mSession;
-//    private final ObjectRenderer mVirtualObject = new ObjectRenderer();
-//    private final ObjectRenderer mVirtualObjectShadow = new ObjectRenderer();
-//    private final PlaneRenderer mPlaneRenderer = new PlaneRenderer();
-//    private final PointCloudRenderer mPointCloud = new PointCloudRenderer();
-//    private final BackgroundRenderer mBackgroundRenderer = new BackgroundRenderer();
-//    private PeerRenderer mPeerObject = new PeerRenderer();
+    private final ObjectRenderer mVirtualObject = new ObjectRenderer();
+    private final ObjectRenderer mVirtualObjectShadow = new ObjectRenderer();
+    private final PlaneRenderer mPlaneRenderer = new PlaneRenderer();
+    private final PointCloudRenderer mPointCloud = new PointCloudRenderer();
+    private final BackgroundRenderer mBackgroundRenderer = new BackgroundRenderer();
+    private PeerRenderer mPeerObject = new PeerRenderer();
     private GLSurfaceView mSurfaceView;
 
 //    private DisplayRotationHelper mDisplayRotationHelper;
@@ -68,7 +82,7 @@ public  class UserVideoActivity extends AppCompatActivity {
                     return;
                 }
 
-                mSession = new Session(/* context= */ this);
+                mSession = new Session(/* context= */ UserVideoActivity.this);
             } catch (UnavailableArcoreNotInstalledException
                     | UnavailableUserDeclinedInstallationException e) {
                 message = "Please install ARCore";
@@ -105,53 +119,59 @@ public  class UserVideoActivity extends AppCompatActivity {
 //        mDisplayRotationHelper.onResume();
     }
 
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        // Note that the order matters - GLSurfaceView is paused first so that it does not try
-//        // to query the session. If Session is paused before GLSurfaceView, GLSurfaceView may
-//        // still call mSession.update() and get a SessionPausedException.
-////        mDisplayRotationHelper.onPause();
-//        mSurfaceView.onPause();
-//        if (mSession != null) {
-//            mSession.pause();
-//        }
-//    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Note that the order matters - GLSurfaceView is paused first so that it does not try
+        // to query the session. If Session is paused before GLSurfaceView, GLSurfaceView may
+        // still call mSession.update() and get a SessionPausedException.
+//        mDisplayRotationHelper.onPause();
+        mSurfaceView.onPause();
+        if (mSession != null) {
+            mSession.pause();
+        }
+    }
 
-//    @Override
-//    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-////        GLES20.glClearColor(0.1f,0.1f,0.1f,1.0f);
-////
-////        // Create the texture and pass it to ARCore session to be filled during update().
-////        mBackgroundRenderer.createOnGlThread(/*context=*/ this);
-////        if (mSession != null) {
-////            mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
-////        }
-////
-////        // Prepare the other rendering objects.
-////        try {
-////            mVirtualObject.createOnGlThread(/*context=*/this, "andy.obj", "andy.png");
-////            mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
-////
-////            mVirtualObjectShadow.createOnGlThread(/*context=*/this,
-////                    "andy_shadow.obj", "andy_shadow.png");
-////            mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
-////            mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
-////        } catch (IOException e) {
-////            Log.e(TAG, "Failed to read obj file");
-////        }
-////        try {
-////            mPlaneRenderer.createOnGlThread(/*context=*/this, "trigrid.png");
-////        } catch (IOException e) {
-////            Log.e(TAG, "Failed to read plane texture");
-////        }
-////        mPointCloud.createOnGlThread(/*context=*/this);
-////
-////        try {
-////            mPeerObject.createOnGlThread(this);
-////        } catch (IOException ex) {
-////        }
-//    }
+    @Override
+    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
+        GLES20.glClearColor(0.1f,0.1f,0.1f,1.0f);
+
+        // Create the texture and pass it to ARCore session to be filled during update().
+        mBackgroundRenderer.createOnGlThread(/*context=*/ UserVideoActivity.this);
+        if (mSession != null) {
+            mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
+        }
+
+        // Prepare the other rendering objects.
+        try {
+            mVirtualObject.createOnGlThread(/*context=*/UserVideoActivity.this, "andy.obj", "andy.png");
+            mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
+
+            mVirtualObjectShadow.createOnGlThread(/*context=*/UserVideoActivity.this,
+                    "andy_shadow.obj", "andy_shadow.png");
+            mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
+            mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to read obj file");
+        }
+        try {
+            mPlaneRenderer.createOnGlThread(/*context=*/UserVideoActivity.this, "trigrid.png");
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to read plane texture");
+        }
+        mPointCloud.createOnGlThread(/*context=*/UserVideoActivity.this);
+
+        try {
+            mPeerObject.createOnGlThread(UserVideoActivity.this);
+        } catch (IOException ex) {
+        }
+    }
+
+    @Override
+    public void onSurfaceChanged(GL10 gl, int width, int height) {
+//        mDisplayRotationHelper.onSurfaceChanged(width, height);
+        GLES20.glViewport(0, 0, width, height);
+    }
 
     private void showSnackbarMessage(String message, boolean finishOnDismiss) {
         mMessageSnackbar = Snackbar.make(
@@ -212,13 +232,9 @@ public  class UserVideoActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    public void onSurfaceChanged(GL10 gl10, int i, int i1) {
-//
-//    }
-//
-//    @Override
-//    public void onDrawFrame(GL10 gl10) {
-//
-//    }
+
+    @Override
+    public void onDrawFrame(GL10 gl10) {
+
+    }
 }
