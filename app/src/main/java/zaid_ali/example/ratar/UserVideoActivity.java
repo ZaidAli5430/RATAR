@@ -19,17 +19,21 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-public  class UserVideoActivity extends AppCompatActivity implements GLSurfaceView.Renderer {
+public  class UserVideoActivity extends AppCompatActivity {
 
     private boolean isMuted = false;
     private ImageView muteBtn;
     private boolean isCalling = true;
     private boolean installRequested;
-    private Session mSession;
     private Snackbar mMessageSnackbar;
+
+    private Session mSession;
+//    private final ObjectRenderer mVirtualObject = new ObjectRenderer();
+//    private final ObjectRenderer mVirtualObjectShadow = new ObjectRenderer();
+//    private final PlaneRenderer mPlaneRenderer = new PlaneRenderer();
+//    private final PointCloudRenderer mPointCloud = new PointCloudRenderer();
+//    private final BackgroundRenderer mBackgroundRenderer = new BackgroundRenderer();
+//    private PeerRenderer mPeerObject = new PeerRenderer();
     private GLSurfaceView mSurfaceView;
 
 //    private DisplayRotationHelper mDisplayRotationHelper;
@@ -96,15 +100,58 @@ public  class UserVideoActivity extends AppCompatActivity implements GLSurfaceVi
 
         showLoadingMessage();
         // Note that order matters - see the note in onPause(), the reverse applies here.
-        mSession.resume();
-        mSurfaceView.onResume();
+//        mSession.resume();
+//        mSurfaceView.onResume();
 //        mDisplayRotationHelper.onResume();
     }
 
-    @Override
-    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        // Note that the order matters - GLSurfaceView is paused first so that it does not try
+//        // to query the session. If Session is paused before GLSurfaceView, GLSurfaceView may
+//        // still call mSession.update() and get a SessionPausedException.
+////        mDisplayRotationHelper.onPause();
+//        mSurfaceView.onPause();
+//        if (mSession != null) {
+//            mSession.pause();
+//        }
+//    }
 
-    }
+//    @Override
+//    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
+////        GLES20.glClearColor(0.1f,0.1f,0.1f,1.0f);
+////
+////        // Create the texture and pass it to ARCore session to be filled during update().
+////        mBackgroundRenderer.createOnGlThread(/*context=*/ this);
+////        if (mSession != null) {
+////            mSession.setCameraTextureName(mBackgroundRenderer.getTextureId());
+////        }
+////
+////        // Prepare the other rendering objects.
+////        try {
+////            mVirtualObject.createOnGlThread(/*context=*/this, "andy.obj", "andy.png");
+////            mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
+////
+////            mVirtualObjectShadow.createOnGlThread(/*context=*/this,
+////                    "andy_shadow.obj", "andy_shadow.png");
+////            mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
+////            mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
+////        } catch (IOException e) {
+////            Log.e(TAG, "Failed to read obj file");
+////        }
+////        try {
+////            mPlaneRenderer.createOnGlThread(/*context=*/this, "trigrid.png");
+////        } catch (IOException e) {
+////            Log.e(TAG, "Failed to read plane texture");
+////        }
+////        mPointCloud.createOnGlThread(/*context=*/this);
+////
+////        try {
+////            mPeerObject.createOnGlThread(this);
+////        } catch (IOException ex) {
+////        }
+//    }
 
     private void showSnackbarMessage(String message, boolean finishOnDismiss) {
         mMessageSnackbar = Snackbar.make(
@@ -165,13 +212,13 @@ public  class UserVideoActivity extends AppCompatActivity implements GLSurfaceVi
     }
 
 
-    @Override
-    public void onSurfaceChanged(GL10 gl10, int i, int i1) {
-
-    }
-
-    @Override
-    public void onDrawFrame(GL10 gl10) {
-
-    }
+//    @Override
+//    public void onSurfaceChanged(GL10 gl10, int i, int i1) {
+//
+//    }
+//
+//    @Override
+//    public void onDrawFrame(GL10 gl10) {
+//
+//    }
 }
