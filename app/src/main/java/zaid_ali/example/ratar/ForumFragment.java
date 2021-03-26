@@ -29,7 +29,7 @@ public class ForumFragment extends Fragment {
 
                 String problemDescription = problemDescriptionField.getText().toString();
                 if(areFieldsFilled(problemDescriptionField)){
-                    Intent intent = new Intent(getActivity(), UserVideoActivity.class);
+                    Intent intent = new Intent(getActivity(), UserVideoActivity1.class);
                     startActivity(intent);
                 }
 

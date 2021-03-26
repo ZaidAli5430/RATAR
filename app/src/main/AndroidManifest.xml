@@ -21,7 +21,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RATAR">
-        <activity android:name=".UserVideoActivity"></activity>
         <activity android:name=".HelperVideoActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".LoginActivity">
@@ -33,6 +32,7 @@
         </activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".UserVideoActivity1" />
 
         <meta-data
             android:name="preloaded_fonts"

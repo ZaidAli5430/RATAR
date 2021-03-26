@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
 
                 String channelCode = randomChannelCode + "";
 
-                Intent intent = new Intent(getActivity(), UserVideoActivity.class);
+                Intent intent = new Intent(getActivity(), UserVideoActivity1.class);
                 intent.putExtra("channelCode", channelCode);
                 startActivity(intent);
             }
