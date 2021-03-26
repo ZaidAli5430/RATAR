@@ -426,7 +426,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             mRtcEngine.setVideoSource(mSource);
             mRtcEngine.setLocalVideoRenderer(mRender);
 
-            mRtcEngine.joinChannel("0066fbc95615707434392c85cff827b9d54IAAJnZudidKGzMdugAsSq6tASoT6DcmnbKv05/9Q9ifqKtJjSIgAAAAAEADYCUco6lJXYAEAAQDqUldg", "123", "", 0);
+            mRtcEngine.joinChannel("0066fbc95615707434392c85cff827b9d54IADMfAKRe3vaXCKktDbYdYAuEniv3rMy2rH718p+hs7iNtJjSIgAAAAAEABfjXZETwhfYAEAAQBOCF9g", "123", "", 0);
         }catch (Exception ex) {
             Toast.makeText(UserVideoActivity1.this, "Exception: " + ex, Toast.LENGTH_SHORT).show();
         }
