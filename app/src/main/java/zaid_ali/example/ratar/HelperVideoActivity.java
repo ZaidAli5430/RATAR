@@ -47,6 +47,7 @@ package zaid_ali.example.ratar;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -71,9 +72,14 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HelperVideoActivity extends AppCompatActivity {
     private static final int PERMISSION_REQ_ID = 22;
+    private static final String TAG = "HelperVideoActivity";
+
 
     private RtcEngine mRtcEngine;
     private RelativeLayout mRemoteContainer;
@@ -89,6 +95,9 @@ public class HelperVideoActivity extends AppCompatActivity {
     int mWidth, mHeight;
     int touchCount = 0;
     private List<Float> floatList = new ArrayList<>();
+    UserTokenApi client;
+    private String userToken;
+
 //    `https://token-generation-server.herokuapp.com/rtcToken?ChannelName=${channelName}`
 
 
@@ -141,6 +150,11 @@ public class HelperVideoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+//        AndroidNetworking.initialize(getApplicationContext());
+
+
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ActionBar ab = getSupportActionBar();
@@ -246,9 +260,7 @@ public class HelperVideoActivity extends AppCompatActivity {
     }
 
     private void initEngineAndJoinChannel() {
-        initializeEngine();
-        setUpLocalView();
-        joinChannel();
+        getToken();
     }
 
     private void removeRemoteView() {
@@ -263,6 +275,30 @@ public class HelperVideoActivity extends AppCompatActivity {
         mRemoteContainer.addView(mRemoteView);
         VideoCanvas remoteVideoCanvas = new VideoCanvas(mRemoteView, VideoCanvas.RENDER_MODE_HIDDEN, uid);
         mRtcEngine.setupRemoteVideo(remoteVideoCanvas);
+    }
+
+    private void getToken(){
+//
+        client =  ServiceGenerator.createService(UserTokenApi.class);
+        Call<UserAuthenticationToken> call = client.getToken("123");
+
+        call.enqueue(new Callback<UserAuthenticationToken>() {
+            @Override
+            public void onResponse(Call<UserAuthenticationToken> call, Response<UserAuthenticationToken> response) {
+                UserAuthenticationToken token  = response.body();
+                userToken = token.getKey();
+                Log.d(TAG,"token: "+ userToken);
+                initializeEngine();
+                setUpLocalView();
+                joinChannel();
+            }
+
+            @Override
+            public void onFailure(Call<UserAuthenticationToken> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void initializeEngine() {
@@ -290,7 +326,7 @@ public class HelperVideoActivity extends AppCompatActivity {
     }
 
     private void joinChannel() {
-        mRtcEngine.joinChannel("0066fbc95615707434392c85cff827b9d54IADMfAKRe3vaXCKktDbYdYAuEniv3rMy2rH718p+hs7iNtJjSIgAAAAAEABfjXZETwhfYAEAAQBOCF9g", "123", "", 0);
+        mRtcEngine.joinChannel(userToken, "123", "", 0);
         dataChannel = mRtcEngine.createDataStream(true, true);
     }
 

@@ -1,10 +1,14 @@
 package zaid_ali.example.ratar;
 
-import com.google.gson.annotations.SerializedName;
-
 public class UserAuthenticationToken {
 
-    @SerializedName("key")
-    private String userToken;
+    private String key;
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKeyToken(String userToken) {
+        this.key = userToken;
+    }
 }
