@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">RATAR</string>
+    <string name="email_label">Enter Email</string>
+    <string name="sign_up_btn">Sign up</string>
+    <string name="pass_label">Enter Password</string>
+    <string name="login_page">Already have an account? <bold>Login</bold></string>
+    <string name="login_link">Login</string>
+    <string name="login_btn">Login</string>
+    <string name="welcome_label">Welcome,</string>
+    <string name="userField">Enter username</string>
+    <string name="private_broadcasting_app_id">6fbc95615707434392c85cff827b9d54</string>
+
+
+    <string name="hello_label">Hello there,</string>
+    <string name="forgot_label">Forgot password? Reset</string>
+    <string name="create_account">Need an account? Sign Up</string>
 </resources>
