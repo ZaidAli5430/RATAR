@@ -2,6 +2,10 @@ package zaid_ali.example.ratar;
 
 import android.Manifest;
 import android.app.Instrumentation;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
@@ -77,7 +81,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     private GLSurfaceView mSurfaceView;
     private GestureDetector mGestureDetector;
     private Snackbar mMessageSnackbar;
-
+    private String copyToClipCode;
     private RtcEngine mRtcEngine;
     private AgoraVideoSource mSource;
     private AgoraVideoRender mRender;
@@ -392,13 +396,13 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         mHidePlane = true;
         mHidePoint = true;
 
-        Button hidePointButton = findViewById(R.id.show_point_cloud);
-        hidePointButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPointCloud((Button) v);
-            }
-        });
+//        Button hidePointButton = findViewById(R.id.show_point_cloud);
+//        hidePointButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showPointCloud((Button) v);
+//            }
+//        });
 
         Button hidePlaneButton = findViewById(R.id.show_plane);
         hidePlaneButton.setOnClickListener(new View.OnClickListener() {
@@ -427,6 +431,9 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             mRtcEngine.setLocalVideoRenderer(mRender);
 
             mRtcEngine.joinChannel("0066fbc95615707434392c85cff827b9d54IADMfAKRe3vaXCKktDbYdYAuEniv3rMy2rH718p+hs7iNtJjSIgAAAAAEABfjXZETwhfYAEAAQBOCF9g", "123", "", 0);
+            Button channelCode = findViewById(R.id.channelCode);
+            channelCode.setText("Channel Code: " + "123");
+
         }catch (Exception ex) {
             Toast.makeText(UserVideoActivity1.this, "Exception: " + ex, Toast.LENGTH_SHORT).show();
         }
@@ -694,6 +701,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         return !mHidePlane;
     }
 
+    // if end call button is clicked
     public void onCallClicked(View view) {
         if (isCalling) {
             isCalling = false;
@@ -701,15 +709,35 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             mSenderHandler.getLooper().quit();
             mRtcEngine.leaveChannel();
             Toast.makeText(UserVideoActivity1.this, "Left Channel", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(UserVideoActivity1.this, MainActivity.class);
+            startActivity(intent);
         }else {
             isCalling = true;
             initRtcEngine();
         }
     }
 
-//    public void onLocalAudioMuteClicked(View view) {
-//        isMuted = !isMuted;
-//        mRtcEngine.muteLocalAudioStream(isMuted);
-//        mMuteBtn.setImageResource(isMuted ? R.drawable.btn_mute : R.drawable.btn_unmute);
-//    }
+    // mutes user audio in the stream
+    public void onUserAudioMuteClicked(View view) {
+        isMuted = !isMuted;
+        mRtcEngine.muteLocalAudioStream(isMuted);
+        mMuteBtn.setImageResource(isMuted ? R.drawable.mute_button_icon : R.drawable.unmute_button_icon);
+    }
+
+    // disables the back functionality while video call is going on
+    @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    public void copyToClipBoard(View view) {
+        Button channelCode = findViewById(R.id.channelCode);
+        copyToClipCode = channelCode.getText().toString();
+        copyToClipCode = copyToClipCode.substring(14,copyToClipCode.length());
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("ChannelCode", copyToClipCode);
+        clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(UserVideoActivity1.this, "Code Copied to Clipboard", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -45,6 +45,7 @@ package zaid_ali.example.ratar;
 //}
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -358,9 +359,25 @@ public class HelperVideoActivity extends AppCompatActivity {
         mRtcEngine.switchCamera();
     }
 
-//    public void onLocalAudioMuteClicked(View view) {
-//        isMuted = !isMuted;
-//        mRtcEngine.muteLocalAudioStream(isMuted);
-//        mMuteBtn.setImageResource(isMuted ? R.drawable.btn_mute : R.drawable.btn_unmute);
-//    }
+    public void onCallClicked(View view) {
+        if (isCalling) {
+            isCalling = false;
+            removeRemoteView();
+            removeLocalView();
+            leaveChannel();
+            Toast.makeText(HelperVideoActivity.this, "Left Channel", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(HelperVideoActivity.this, MainActivity.class);
+            startActivity(intent);
+        }else {
+            isCalling = true;
+            setUpLocalView();
+            joinChannel();
+        }
+    }
+
+    public void onLocalAudioMuteClicked(View view) {
+        isMuted = !isMuted;
+        mRtcEngine.muteLocalAudioStream(isMuted);
+        mMuteBtn.setImageResource(isMuted ? R.drawable.mute_button_icon : R.drawable.unmute_button_icon);
+    }
 }

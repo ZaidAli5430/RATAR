@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserVideoActivity1">
 
     <android.opengl.GLSurfaceView
@@ -26,35 +27,39 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="140dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="5dp"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/show_point_cloud"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/channelCode"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="3dp"
-            android:background="@color/button_background"
-            android:text="Show Point"
-            android:textSize="16sp" />
+            android:background="@drawable/box"
+            android:text=""
+            android:textSize="11sp"
+            app:icon="@drawable/copy_icon"
+            app:iconGravity="start"
+            app:iconSize="36dp"
+            android:onClick="copyToClipBoard"/>
 
         <Button
             android:id="@+id/show_plane"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:background="@color/button_background"
-            android:layout_marginTop="3dp"
             android:layout_gravity="left"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/box"
             android:text="Show Plane"
-            android:textSize="16sp"/>
+            android:textSize="12sp" />
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,6 +67,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:layout_centerInParent="true">
+
 
         <ImageView
             android:id="@+id/btn_call"
