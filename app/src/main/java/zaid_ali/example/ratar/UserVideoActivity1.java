@@ -65,6 +65,9 @@ import io.agora.rtc.RtcEngine;
 import io.agora.rtc.mediaio.MediaIO;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import zaid_ali.example.ratar.rendering.BackgroundRenderer;
 import zaid_ali.example.ratar.rendering.ObjectRenderer;
 import zaid_ali.example.ratar.rendering.PeerRenderer;
@@ -107,6 +110,8 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     private boolean isCalling = true;
     private boolean isMuted = false;
     private int mWidth, mHeight;
+    private String userToken;
+    private UserTokenApi client;
 
     private IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         @Override
@@ -318,7 +323,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
 
     private void checkAndInitRtc() {
         if (checkSelfPermissions()) {
-            initRtcEngine();
+            getToken();
         }
     }
 
@@ -334,7 +339,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             }
 
             if (deniedCount == 0) {
-                initRtcEngine();
+                getToken();
             } else {
                 finish();
             }
@@ -392,6 +397,28 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         mMessageSnackbar.show();
     }
 
+    private void getToken(){
+//
+        client =  ServiceGenerator.createService(UserTokenApi.class);
+        Call<UserAuthenticationToken> call = client.getToken("123");
+
+        call.enqueue(new Callback<UserAuthenticationToken>() {
+            @Override
+            public void onResponse(Call<UserAuthenticationToken> call, Response<UserAuthenticationToken> response) {
+                UserAuthenticationToken token  = response.body();
+                userToken = token.getKey();
+                Log.d(TAG,"token: "+ userToken);
+                initRtcEngine();
+            }
+
+            @Override
+            public void onFailure(Call<UserAuthenticationToken> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     private void initRtcEngine() {
         mHidePlane = true;
         mHidePoint = true;
@@ -430,7 +457,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             mRtcEngine.setVideoSource(mSource);
             mRtcEngine.setLocalVideoRenderer(mRender);
 
-            mRtcEngine.joinChannel("0066fbc95615707434392c85cff827b9d54IADMfAKRe3vaXCKktDbYdYAuEniv3rMy2rH718p+hs7iNtJjSIgAAAAAEABfjXZETwhfYAEAAQBOCF9g", "123", "", 0);
+            mRtcEngine.joinChannel(userToken, "123", "", 0);
             Button channelCode = findViewById(R.id.channelCode);
             channelCode.setText("Channel Code: " + "123");
 

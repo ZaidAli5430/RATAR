@@ -96,7 +96,7 @@ public class HelperVideoActivity extends AppCompatActivity {
     int mWidth, mHeight;
     int touchCount = 0;
     private List<Float> floatList = new ArrayList<>();
-    UserTokenApi client;
+    private UserTokenApi client;
     private String userToken;
 
 //    `https://token-generation-server.herokuapp.com/rtcToken?ChannelName=${channelName}`
