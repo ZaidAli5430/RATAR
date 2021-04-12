@@ -62,12 +62,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.home_nav:
                 fragment = new HomeFragment();
                 break;
+            case R.id.help_nav:
+                fragment = new HelpFragment();
+                break;
             case R.id.forum_nav:
                 fragment = new ForumFragment();
                 break;
             case R.id.profile_nav:
                 fragment = new ProfileFragment();
                 break;
+
 
         }
         return loadFragment(fragment);

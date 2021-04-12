@@ -11,7 +11,7 @@
     <string name="private_broadcasting_app_id">6fbc95615707434392c85cff827b9d54</string>
 
 
-    <string name="hello_label">Hello there,</string>
+    <string name="hello_label">RATAR,</string>
     <string name="forgot_label">Forgot password? Reset</string>
     <string name="create_account">Need an account? Sign Up</string>
     <string name="title_activity_forum">ForumActivity</string>
