@@ -2,11 +2,14 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
 
+
         <item>@font/alef_bold</item>
         <item>@font/andada</item>
         <item>@font/basic</item>
+        <item>@font/carter_one</item>
         <item>@font/fugaz_one</item>
         <item>@font/miriam_libre</item>
+        <item>@font/montserrat</item>
         <item>@font/roboto_black_italic</item>
     </array>
 </resources>
