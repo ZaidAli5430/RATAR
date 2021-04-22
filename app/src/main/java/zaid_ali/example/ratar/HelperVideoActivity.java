@@ -1,49 +1,5 @@
 package zaid_ali.example.ratar;
 
-//public class HelperVideoActivity extends AppCompatActivity {
-//
-//    private boolean isMuted = false;
-//    private ImageView muteBtn;
-//    private boolean isCalling = true;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_helper_video);
-//
-//        muteBtn = findViewById(R.id.helper_btn_mute);
-//    }
-//
-//
-//    public void onCallClicked(View view) { // when the end call button is clicked
-//        if (isCalling) {
-//            isCalling = false;
-////            removeRemoteRender();
-////            mSenderHandler.getLooper().quit();
-////            mRtcEngine.leaveChannel();
-//            Intent intent = new Intent(HelperVideoActivity.this, MainActivity.class); // returns to home fragment on main activity
-//            Toast.makeText(this, "Left Channel", Toast.LENGTH_SHORT).show();
-//            startActivity(intent);
-//        }else {
-//            isCalling = true;
-////            initRtcEngine();
-//        }
-//    }
-//
-//
-//    public void onSwitchCameraClicked(View view) {
-//        return;
-//    }
-//
-//
-//    public void onLocalAudioMuteClicked(View view) {
-//        isMuted = !isMuted;
-////        mRtcEngine.muteLocalAudioStream(isMuted);
-//        muteBtn.setImageResource(isMuted ? R.drawable.mute_button_icon : R.drawable.unmute_button_icon);
-//    }
-//}
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -111,7 +67,7 @@ public class HelperVideoActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(HelperVideoActivity.this, "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HelperVideoActivity.this, "Joined Channel Successfully", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -225,14 +181,14 @@ public class HelperVideoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        removeLocalView();
+//        removeLocalView();
         removeRemoteView();
         leaveChannel();
         RtcEngine.destroy();
     }
 
     private void initUI() {
-        mLocalContainer = findViewById(R.id.local_video_view_container);
+//        mLocalContainer = findViewById(R.id.local_video_view_container);
         mRemoteContainer = findViewById(R.id.remote_video_view_container);
         mMuteBtn = findViewById(R.id.btn_mute);
     }
@@ -290,7 +246,7 @@ public class HelperVideoActivity extends AppCompatActivity {
                 userToken = token.getKey();
                 Log.d(TAG,"token: "+ userToken);
                 initializeEngine();
-                setUpLocalView();
+//                setUpLocalView();
                 joinChannel(joinCode);
             }
 
@@ -316,15 +272,15 @@ public class HelperVideoActivity extends AppCompatActivity {
         }
     }
 
-    private void setUpLocalView() {
-        mRtcEngine.enableVideo();
-        mLocalView = RtcEngine.CreateRendererView(getBaseContext());
-        mLocalContainer.addView(mLocalView);
-        mLocalView.setZOrderMediaOverlay(true);
-
-        VideoCanvas localVideoCanvas = new VideoCanvas(mLocalView, VideoCanvas.RENDER_MODE_HIDDEN, 0);
-        mRtcEngine.setupLocalVideo(localVideoCanvas);
-    }
+//    private void setUpLocalView() {
+//        mRtcEngine.enableVideo();
+//        mLocalView = RtcEngine.CreateRendererView(getBaseContext());
+//        mLocalContainer.addView(mLocalView);
+//        mLocalView.setZOrderMediaOverlay(true);
+//
+//        VideoCanvas localVideoCanvas = new VideoCanvas(mLocalView, VideoCanvas.RENDER_MODE_HIDDEN, 0);
+//        mRtcEngine.setupLocalVideo(localVideoCanvas);
+//    }
 
     private void joinChannel(String joinCode) {
         mRtcEngine.joinChannel(userToken,joinCode, "", 0);
@@ -348,12 +304,12 @@ public class HelperVideoActivity extends AppCompatActivity {
         mRtcEngine.leaveChannel();
     }
 
-    private void removeLocalView() {
-        if (mLocalView != null) {
-            mLocalContainer.removeView(mLocalView);
-        }
-        mLocalView = null;
-    }
+//    private void removeLocalView() {
+//        if (mLocalView != null) {
+//            mLocalContainer.removeView(mLocalView);
+//        }
+//        mLocalView = null;
+//    }
 
     public void onSwitchCameraClicked(View view) {
         mRtcEngine.switchCamera();
@@ -363,14 +319,14 @@ public class HelperVideoActivity extends AppCompatActivity {
         if (isCalling) {
             isCalling = false;
             removeRemoteView();
-            removeLocalView();
+//            removeLocalView();
             leaveChannel();
             Toast.makeText(HelperVideoActivity.this, "Left Channel", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(HelperVideoActivity.this, MainActivity.class);
             startActivity(intent);
         }else {
             isCalling = true;
-            setUpLocalView();
+//            setUpLocalView();
             joinChannel(joinCode);
         }
     }

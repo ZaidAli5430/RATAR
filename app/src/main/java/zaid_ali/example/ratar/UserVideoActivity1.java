@@ -63,7 +63,6 @@ import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.mediaio.MediaIO;
-import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -126,30 +125,30 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             });
         }
 
-        @Override
-        public void onRemoteVideoStateChanged(final int uid, int state, int reason, int elapsed) {
-            super.onRemoteVideoStateChanged(uid, state, reason, elapsed);
-            //when remote user join the channel
-            if (state == Constants.REMOTE_VIDEO_STATE_STARTING) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        addRemoteRender(uid);
-                    }
-                });
-            }
-        }
+//        @Override
+//        public void onRemoteVideoStateChanged(final int uid, int state, int reason, int elapsed) {
+//            super.onRemoteVideoStateChanged(uid, state, reason, elapsed);
+//            //when remote user join the channel
+//            if (state == Constants.REMOTE_VIDEO_STATE_STARTING) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        addRemoteRender(uid);
+//                    }
+//                });
+//            }
+//        }
 
-        @Override
-        public void onUserOffline(int uid, int reason) {
-            //when remote user leave the channel
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    removeRemoteRender();
-                }
-            });
-        }
+//        @Override
+//        public void onUserOffline(int uid, int reason) {
+//            //when remote user leave the channel
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    removeRemoteRender();
+//                }
+//            });
+//        }
 
         @Override
         public void onStreamMessage(int uid, int streamId, byte[] data) {
@@ -313,7 +312,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     protected void onDestroy() {
         super.onDestroy();
 
-        removeRemoteRender();
+//        removeRemoteRender();
         mSenderHandler.getLooper().quit();
 
         mRtcEngine.leaveChannel();
@@ -471,19 +470,19 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         mSenderHandler = new Handler(thread.getLooper());
     }
 
-    private void removeRemoteRender() {
-        if (mRemoteView != null) {
-            mRemoteContainer.removeView(mRemoteView);
-        }
-        mRemoteView = null;
-    }
+//    private void removeRemoteRender() {
+//        if (mRemoteView != null) {
+//            mRemoteContainer.removeView(mRemoteView);
+//        }
+//        mRemoteView = null;
+//    }
 
-    private void addRemoteRender(int uid) {
-        mRemoteView = RtcEngine.CreateRendererView(getBaseContext());
-        mRemoteContainer.addView(mRemoteView);
-        VideoCanvas remoteVideoCanvas = new VideoCanvas(mRemoteView, VideoCanvas.RENDER_MODE_HIDDEN, uid);
-        mRtcEngine.setupRemoteVideo(remoteVideoCanvas);
-    }
+//    private void addRemoteRender(int uid) {
+//        mRemoteView = RtcEngine.CreateRendererView(getBaseContext());
+//        mRemoteContainer.addView(mRemoteView);
+//        VideoCanvas remoteVideoCanvas = new VideoCanvas(mRemoteView, VideoCanvas.RENDER_MODE_HIDDEN, uid);
+//        mRtcEngine.setupRemoteVideo(remoteVideoCanvas);
+//    }
 
     private boolean checkSelfPermissions() {
         List<String> needList = new ArrayList<>();
@@ -733,7 +732,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     public void onCallClicked(View view) {
         if (isCalling) {
             isCalling = false;
-            removeRemoteRender();
+//            removeRemoteRender();
             mSenderHandler.getLooper().quit();
             mRtcEngine.leaveChannel();
             Toast.makeText(UserVideoActivity1.this, "Left Channel", Toast.LENGTH_SHORT).show();
