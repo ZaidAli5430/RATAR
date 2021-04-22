@@ -112,6 +112,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     private int mWidth, mHeight;
     private String userToken;
     private UserTokenApi client;
+    private String channelId;
 
     private IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         @Override
@@ -231,8 +232,8 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         mSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 
         installRequested = false;
-
-        checkAndInitRtc();
+        channelId=getIntent().getStringExtra("Channelcode");
+        checkAndInitRtc(channelId);
     }
 
     @Override
@@ -321,9 +322,9 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
 
     }
 
-    private void checkAndInitRtc() {
+    private void checkAndInitRtc(String channelId) {
         if (checkSelfPermissions()) {
-            getToken();
+            getToken(channelId);
         }
     }
 
@@ -339,7 +340,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             }
 
             if (deniedCount == 0) {
-                getToken();
+                getToken(channelId);
             } else {
                 finish();
             }
@@ -397,10 +398,10 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         mMessageSnackbar.show();
     }
 
-    private void getToken(){
+    private void getToken(String channelId){
 //
         client =  ServiceGenerator.createService(UserTokenApi.class);
-        Call<UserAuthenticationToken> call = client.getToken("123");
+        Call<UserAuthenticationToken> call = client.getToken(channelId);
 
         call.enqueue(new Callback<UserAuthenticationToken>() {
             @Override
@@ -457,9 +458,9 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             mRtcEngine.setVideoSource(mSource);
             mRtcEngine.setLocalVideoRenderer(mRender);
 
-            mRtcEngine.joinChannel(userToken, "123", "", 0);
+            mRtcEngine.joinChannel(userToken, channelId, "", 0);
             Button channelCode = findViewById(R.id.channelCode);
-            channelCode.setText("Channel Code: " + "123");
+            channelCode.setText("Channel Code: " + channelId);
 
         }catch (Exception ex) {
             Toast.makeText(UserVideoActivity1.this, "Exception: " + ex, Toast.LENGTH_SHORT).show();
@@ -516,10 +517,10 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
 
         // Prepare the other rendering objects.
         try {
-            mVirtualObject.createOnGlThread(/*context=*/UserVideoActivity1.this, "andy.obj", "andy.png");
+            mVirtualObject.createOnGlThread(/*context=*/ UserVideoActivity1.this, "andy.obj", "andy.png");
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
-            mVirtualObjectShadow.createOnGlThread(/*context=*/UserVideoActivity1.this,
+            mVirtualObjectShadow.createOnGlThread(/*context=*/ UserVideoActivity1.this,
                     "andy_shadow.obj", "andy_shadow.png");
             mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
             mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
@@ -527,11 +528,11 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             Log.e(TAG, "Failed to read obj file");
         }
         try {
-            mPlaneRenderer.createOnGlThread(/*context=*/UserVideoActivity1.this, "trigrid.png");
+            mPlaneRenderer.createOnGlThread(/*context=*/ UserVideoActivity1.this, "trigrid.png");
         } catch (IOException e) {
             Log.e(TAG, "Failed to read plane texture");
         }
-        mPointCloud.createOnGlThread(/*context=*/UserVideoActivity1.this);
+        mPointCloud.createOnGlThread(/*context=*/ UserVideoActivity1.this);
 
         try {
             mPeerObject.createOnGlThread(UserVideoActivity1.this);

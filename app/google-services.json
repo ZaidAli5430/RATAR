@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "382727327493-tdpfc9p7ddsecinmdheha7l9h99fd7cp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "zaid_ali.example.ratar",
+            "certificate_hash": "a0c05aa7788d243b6c1e854cf4bb1da957ac4a8c"
+          }
+        },
+        {
           "client_id": "382727327493-rv98ikve0cp6hno78gjsk3us7nf4m24a.apps.googleusercontent.com",
           "client_type": 3
         }

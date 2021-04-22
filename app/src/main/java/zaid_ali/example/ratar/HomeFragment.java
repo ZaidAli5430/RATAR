@@ -34,7 +34,8 @@ public class HomeFragment extends Fragment {
                 if(areFieldsFilled(joinCodeField)){
 
                     Intent intent = new Intent(getActivity(), HelperVideoActivity.class);
-//                    intent.putExtra("joinCode", joinCode);  // sending the entered join Code to next activity
+//                    intent.putExtra("joinCode",joinCode);
+                    intent.putExtra("joinCode", joinCode);  // sending the entered join Code to next activity
                     startActivity(intent);
                 }
 
@@ -46,12 +47,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                int randomChannelCode = (int)(Math.random() * 999999) + 100000;
+                int randomChannelCode = (int)(Math.random() * 999) + 111;
 
                 String channelCode = randomChannelCode + "";
 
                 Intent intent = new Intent(getActivity(), UserVideoActivity1.class);
-                intent.putExtra("channelCode", channelCode);
+                intent.putExtra("Channelcode", channelCode);
                 startActivity(intent);
             }
         });

@@ -89,7 +89,7 @@ public class HelperVideoActivity extends AppCompatActivity {
     private SurfaceView mLocalView;
     private ImageView mMuteBtn;
 
-    private String channelName = "";
+    private String joinCode;
     private boolean isCalling = true;
     private boolean isMuted = false;
     int dataChannel;
@@ -167,13 +167,13 @@ public class HelperVideoActivity extends AppCompatActivity {
 
         initUI();
 
-        channelName = getIntent().getStringExtra("ChannelName");
+        joinCode = getIntent().getStringExtra("joinCode");
         mWidth= this.getResources().getDisplayMetrics().widthPixels;
         mHeight= this.getResources().getDisplayMetrics().heightPixels;
 
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID)) {
-            initEngineAndJoinChannel();
+            initEngineAndJoinChannel(joinCode);
         }
 
         mRemoteContainer.setOnTouchListener(new View.OnTouchListener() {
@@ -254,14 +254,14 @@ public class HelperVideoActivity extends AppCompatActivity {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED || grantResults[1] != PackageManager.PERMISSION_GRANTED) {
                     break;
                 }
-                initEngineAndJoinChannel();
+                initEngineAndJoinChannel(joinCode);
                 break;
             }
         }
     }
 
-    private void initEngineAndJoinChannel() {
-        getToken();
+    private void initEngineAndJoinChannel(String joinCode) {
+        getToken(joinCode);
     }
 
     private void removeRemoteView() {
@@ -278,10 +278,10 @@ public class HelperVideoActivity extends AppCompatActivity {
         mRtcEngine.setupRemoteVideo(remoteVideoCanvas);
     }
 
-    private void getToken(){
+    private void getToken(String joinCode){
 //
         client =  ServiceGenerator.createService(UserTokenApi.class);
-        Call<UserAuthenticationToken> call = client.getToken("123");
+        Call<UserAuthenticationToken> call = client.getToken(joinCode);
 
         call.enqueue(new Callback<UserAuthenticationToken>() {
             @Override
@@ -291,7 +291,7 @@ public class HelperVideoActivity extends AppCompatActivity {
                 Log.d(TAG,"token: "+ userToken);
                 initializeEngine();
                 setUpLocalView();
-                joinChannel();
+                joinChannel(joinCode);
             }
 
             @Override
@@ -326,8 +326,8 @@ public class HelperVideoActivity extends AppCompatActivity {
         mRtcEngine.setupLocalVideo(localVideoCanvas);
     }
 
-    private void joinChannel() {
-        mRtcEngine.joinChannel(userToken, "123", "", 0);
+    private void joinChannel(String joinCode) {
+        mRtcEngine.joinChannel(userToken,joinCode, "", 0);
         dataChannel = mRtcEngine.createDataStream(true, true);
     }
 
@@ -371,7 +371,7 @@ public class HelperVideoActivity extends AppCompatActivity {
         }else {
             isCalling = true;
             setUpLocalView();
-            joinChannel();
+            joinChannel(joinCode);
         }
     }
 
