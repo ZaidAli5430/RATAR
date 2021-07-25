@@ -49,6 +49,8 @@ import com.google.ar.core.exceptions.UnavailableApkTooOldException;
 import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -732,6 +734,12 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     public void onCallClicked(View view) {
         if (isCalling) {
             isCalling = false;
+            DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().getRoot().child("chat");
+            dbNode.setValue(null);
+//            FirebaseDatabase mDatabase=FirebaseDatabase.getInstance();
+//            DatabaseReference mReference = mDatabase.getReference("chat");
+//            mReference.child("https://ratar-auth.firebaseio.com/chat").removeValue();
+
 //            removeRemoteRender();
             mSenderHandler.getLooper().quit();
             mRtcEngine.leaveChannel();
@@ -751,6 +759,10 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
         mMuteBtn.setImageResource(isMuted ? R.drawable.mute_button_icon : R.drawable.unmute_button_icon);
     }
 
+    public void onUserChatClicked(View view) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
+    }
     // disables the back functionality while video call is going on
     @Override
     public void onBackPressed() {

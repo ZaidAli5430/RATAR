@@ -20,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +102,10 @@ public class HelperVideoActivity extends AppCompatActivity {
         }
     };
 
+    public void onHelperChatClicked(View view) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
+    }
     // Ask for Android device permissions at runtime.
     private static final String[] REQUESTED_PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
@@ -318,6 +325,11 @@ public class HelperVideoActivity extends AppCompatActivity {
     public void onCallClicked(View view) {
         if (isCalling) {
             isCalling = false;
+            DatabaseReference dbNode = FirebaseDatabase.getInstance().getReference().getRoot().child("chat");
+            dbNode.setValue(null);
+//            FirebaseDatabase mDatabase=FirebaseDatabase.getInstance();
+//            DatabaseReference mReference = mDatabase.getReference("chat");
+//            mReference.child("https://ratar-auth.firebaseio.com/chat").removeValue();
             removeRemoteView();
 //            removeLocalView();
             leaveChannel();

@@ -78,6 +78,20 @@
             android:scaleType="centerCrop"/>
 
         <ImageView
+            android:id="@+id/btn_helper_chat"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginEnd="-147dp"
+            android:layout_marginRight="25dp"
+            android:onClick="onHelperChatClicked"
+
+            android:layout_toStartOf="@id/btn_switch_camera"
+            android:layout_toRightOf="@id/btn_call"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_action_name" />
+
+        <ImageView
             android:id="@+id/helper_btn_mute"
             android:layout_width="54dp"
             android:layout_height="54dp"
