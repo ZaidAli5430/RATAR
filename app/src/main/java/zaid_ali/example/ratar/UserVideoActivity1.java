@@ -103,7 +103,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
     private final ArrayBlockingQueue<MotionEvent> queuedSingleTaps = new ArrayBlockingQueue<>(16);
     private final ArrayList<Anchor> anchors = new ArrayList<>();
     private final float[] mAnchorMatrix = new float[16];
-    private float mScaleFactor = 0.1f;
+    private float mScaleFactor = 0.05f;
     private String channelName = "";
     private boolean installRequested;
     private boolean mHidePoint;
@@ -658,9 +658,9 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
 
                 // Update and draw the model and its shadow.
                 mVirtualObject.updateModelMatrix(mAnchorMatrix, mScaleFactor);
-                mVirtualObjectShadow.updateModelMatrix(mAnchorMatrix, scaleFactor);
+             //   mVirtualObjectShadow.updateModelMatrix(mAnchorMatrix, scaleFactor);
                 mVirtualObject.draw(viewmtx, projmtx, lightIntensity);
-                mVirtualObjectShadow.draw(viewmtx, projmtx, lightIntensity);
+              //  mVirtualObjectShadow.draw(viewmtx, projmtx, lightIntensity);
             }
 
             sendARViewMessage();
