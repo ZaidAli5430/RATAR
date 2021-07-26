@@ -104,6 +104,7 @@ public class HelpFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 TextView problemDescriptionField = HelpView.findViewById(R.id.problemDescriptionField);
+                TextView problemTitleField = HelpView.findViewById(R.id.titleField);
                 String problemDescription = problemDescriptionField.getText().toString();
                 Posts post=new Posts();
                 post.setTitle(mTitle.getText().toString());
@@ -111,7 +112,7 @@ public class HelpFragment extends Fragment {
                 Random rn = new Random();
                 int rand = rn.nextInt(999) + 111;
                 post.setid(rand);
-                if(areFieldsFilled(problemDescriptionField)){
+                if(areFieldsFilled(problemDescriptionField, problemTitleField)){
                     Toast.makeText(getActivity(),"Problem posted!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), UserVideoActivity1.class);
                     intent.putExtra("Channelcode",rand+"");
@@ -128,10 +129,13 @@ public class HelpFragment extends Fragment {
     }
 
 
-    boolean areFieldsFilled(TextView problemDescriptionField) { // checks if all the fields are filled and valid
+    boolean areFieldsFilled(TextView problemDescriptionField, TextView problemTitleField) { // checks if all the fields are filled and valid
         Boolean filledFields = true; // if all fields are filled
-
-        if (TextUtils.isEmpty(problemDescriptionField.getText().toString())) { // if email field is empty
+        if (TextUtils.isEmpty(problemTitleField.getText().toString())) { // if email field is empty
+            problemTitleField.setError("Please enter a problem title"); //
+            filledFields = false;
+        }
+        else if (TextUtils.isEmpty(problemDescriptionField.getText().toString())) { // if email field is empty
             problemDescriptionField.setError("Please enter a problem description"); //
             filledFields = false;
         }

@@ -2,26 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F2C9"
+    android:background="#ffffff"
     android:gravity="bottom"
     android:orientation="horizontal">
 
     <EditText
+        android:id="@+id/messageArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1"
-        android:textColorHint="#000000"
-        android:hint="Write a message..."
-        android:id="@+id/messageArea"
-        android:maxHeight="80dp"
+        android:background="@drawable/chat_box"
 
-        />
+        android:fontFamily="@font/montserrat"
+        android:hint="Type a message..."
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#ffffff" />
 
     <ImageView
+        android:id="@+id/sendButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="4"
-        android:padding="4dp"
-        android:src="@android:drawable/ic_menu_send"
-        android:id="@+id/sendButton"/>
+        android:maxHeight="40dp"
+        android:padding="0dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/send_button_icon" />
 </LinearLayout>

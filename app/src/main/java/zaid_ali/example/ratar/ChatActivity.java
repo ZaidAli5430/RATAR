@@ -1,11 +1,16 @@
 package zaid_ali.example.ratar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -43,6 +48,7 @@ public class ChatActivity extends AppCompatActivity {
     ScrollView scrollView;
     FirebaseAuth mAuth;
     String currentUserEmail;
+    ImageView backButton;
     String currentUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +68,17 @@ public class ChatActivity extends AppCompatActivity {
         currentUserEmail = mAuth.getCurrentUser().getEmail();
         currentUserName = currentUserEmail.substring(0, currentUserEmail.indexOf('@'));
 //        Button postForumButton = HelpView.findViewById(R.id.postForumBtn);
+
         mpostFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView inputText = (TextView)findViewById(R.id.messageArea);
                 String inputTextMessage = inputText.getText().toString();
-                ChatMessage post=new ChatMessage();
-                post.setMessageText(inputText.getText().toString());
-                post.setMessageUser(currentUserName);
-                inputText.setText("");
+                if (TextUtils.isEmpty(inputTextMessage)==false) {
+                    ChatMessage post = new ChatMessage();
+                    post.setMessageText(inputText.getText().toString());
+                    post.setMessageUser(currentUserName);
+                    inputText.setText("");
 //                msg.setText(inputTextMessage);
 //                if(areFieldsFilled(problemDescriptionField)){
 //                    Toast.makeText(getActivity(),"Problem posted!", Toast.LENGTH_SHORT).show();
@@ -79,9 +87,9 @@ public class ChatActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
 
-                String key=mReference.push().getKey();
-                mReference.child(key).setValue(post);
-
+                    String key = mReference.push().getKey();
+                    mReference.child(key).setValue(post);
+                }
 
 
             }
@@ -90,6 +98,7 @@ public class ChatActivity extends AppCompatActivity {
         chat=new ChatMessage();
 //        mReference=mDatabase.getReference("chat");
         mReference.addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 chat=dataSnapshot.getValue(ChatMessage.class);
@@ -120,8 +129,17 @@ public class ChatActivity extends AppCompatActivity {
 
 
         });
+
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addMessageBox(String message){
         TextView textView = new TextView(ChatActivity.this);
         textView.setText(message);
@@ -129,6 +147,11 @@ public class ChatActivity extends AppCompatActivity {
         lp.setMargins(0, 0, 0, 10);
         textView.setLayoutParams(lp);
         textView.setBackgroundResource(R.drawable.msg_shape1);
+
+        textView.setTextColor(Color.WHITE);
+        textView.setPadding(50,50,50,50);
+//        Typeface typeface = getResources().getFont(R.font.montserrat);
+//        textView.setTypeface(typeface);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(20,10,10,10);
     //    textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);

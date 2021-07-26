@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import zaid_ali.example.ratar.ForumDialog;
+
 public class ForumFragment extends Fragment {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -91,7 +93,8 @@ public class ForumFragment extends Fragment {
 //            }
 //        });
 
-
+        ForumDialog alert = new ForumDialog();
+        alert.showDialog(getActivity(), "Welcome to Helper's Forum. You can copy the channel code and join the channel from the homepage to help the user.");
         return ForumView;
 
 

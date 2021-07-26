@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="top"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="0dp"
+        android:layout_weight="2"
+        android:maxHeight="40dp"
+
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/back_icon" />
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="6"
+        android:fontFamily="@font/montserrat"
+        android:text="Helper Chat"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+
+
+</LinearLayout>

@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    // disables the back functionality while video call is going on
+    @Override
+    public void onBackPressed() {
+        return;
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;

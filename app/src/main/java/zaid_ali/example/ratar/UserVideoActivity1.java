@@ -378,6 +378,7 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
                 UserVideoActivity1.this.findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_INDEFINITE);
         mMessageSnackbar.getView().setBackgroundColor(0xbf323232);
+
         if (finishOnDismiss) {
             mMessageSnackbar.setAction(
                     "Dismiss",
