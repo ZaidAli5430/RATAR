@@ -22,14 +22,20 @@ Furthermore, due to the nature of our app, it can be used for remote training of
 (The following screenshots are the major ones and part of our FYP-1 only)
 
 ### Sign up
-![Sign up](https://i.postimg.cc/zGpDsyHT/1608984956555.jpg)
+![Sign up](https://i.postimg.cc/SKp7Xwbt/1627452214044.jpg)
 ### Log in
-![log in](https://i.postimg.cc/2SC89Qyz/1608984956579.jpg)
+![log in](https://i.postimg.cc/MKPFQZ93/1627452214072.jpg)
 ### Create/Join Channel
-![Create/Join Channel](https://i.postimg.cc/g0JcmG3Q/1608984956531.jpg)
+![Create/Join Channel](https://i.postimg.cc/s29P5wVf/1627452214015.jpg)
 
-### Plane Detection during call
-![plane-detection](https://i.postimg.cc/rF5ZJ9NS/Whats-App-Image-2020-12-20-at-10-36-03-PM.jpg)
+### Helper's Forum
+![helper-forum](https://i.postimg.cc/XJjfLdJf/1627452213931.jpg)
+
+### Expert-Help
+![expert-help](https://i.postimg.cc/qqg8Vr2g/1627452213964.jpg)
+
+### Help Chat
+![help-chat](https://i.postimg.cc/2yJnCtxG/1627452213895.jpg)
 
 ## Tech/framework used
 
