@@ -75,3 +75,4 @@ Furthermore, due to the nature of our app, it can be used for remote training of
 - https://developers.google.com/ar/develop
 - https://rnfirebase.io/
 - https://developer.android.com/docs
+- https://www.agora.io/en/blog/build-an-augmented-reality-remote-assistance-app-in-android/
