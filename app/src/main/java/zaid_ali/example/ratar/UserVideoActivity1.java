@@ -522,10 +522,10 @@ public class UserVideoActivity1 extends AppCompatActivity implements GLSurfaceVi
             mVirtualObject.createOnGlThread(/*context=*/ UserVideoActivity1.this, "andy.obj", "andy.png");
             mVirtualObject.setMaterialProperties(0.0f, 3.5f, 1.0f, 6.0f);
 
-            mVirtualObjectShadow.createOnGlThread(/*context=*/ UserVideoActivity1.this,
-                    "andy_shadow.obj", "andy_shadow.png");
-            mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
-            mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
+//            mVirtualObjectShadow.createOnGlThread(/*context=*/ UserVideoActivity1.this,
+//                    "andy_shadow.obj", "andy_shadow.png");
+//            mVirtualObjectShadow.setBlendMode(ObjectRenderer.BlendMode.Shadow);
+//            mVirtualObjectShadow.setMaterialProperties(1.0f, 0.0f, 0.0f, 1.0f);
         } catch (IOException e) {
             Log.e(TAG, "Failed to read obj file");
         }

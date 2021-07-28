@@ -29,6 +29,8 @@ public class ProfileFragment extends Fragment {
         View profileView = inflater.inflate(R.layout.fragment_profile,null);
         mAuth = FirebaseAuth.getInstance();
         currentUserEmail = mAuth.getCurrentUser().getEmail();
+
+        // trims the email and displays on the profile
         currentUserEmail = currentUserEmail.substring(0, currentUserEmail.indexOf('@'));
 
         userName = profileView.findViewById(R.id.userName);
@@ -36,6 +38,7 @@ public class ProfileFragment extends Fragment {
 
 
 
+        // log out button on top right corner
         logOutButton = profileView.findViewById(R.id.logOutBtn);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+
+// main activity for working through the fragments
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -36,13 +38,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //                }
 //            }
 //        });
-
         BottomNavigationView bottomNavigator = findViewById(R.id.bottomNav);
         bottomNavigator.setOnNavigationItemSelectedListener(MainActivity.this);
 
         loadFragment(new HomeFragment());
     }
-
+    // used for loading fragments (Home Fragment, Profile Fragment, Forum Fragment)
     private boolean loadFragment(Fragment fragment){
         if(fragment!=null){
             getSupportFragmentManager()
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onBackPressed() {
         return;
     }
+
+    // controls the navigation for all fragments
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;

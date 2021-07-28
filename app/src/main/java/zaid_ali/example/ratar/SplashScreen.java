@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+// simple splash screen on startup
 public class SplashScreen extends AppCompatActivity {
     Button continuBtn;
     @Override
@@ -16,6 +18,8 @@ public class SplashScreen extends AppCompatActivity {
 
 
         continuBtn = findViewById(R.id.continueBtn);
+
+        // 'OK' button navigates to login screen on click
         continuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

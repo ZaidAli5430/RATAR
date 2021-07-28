@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ResetActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
+    FirebaseAuth auth; // firebase instance
     Button resetBtn;
     TextView emailField;
 
@@ -27,9 +27,11 @@ public class ResetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset);
 
+        // get the reset button from the xml
         resetBtn = findViewById(R.id.loginBtn);
         auth = FirebaseAuth.getInstance();
 
+        // onClick listener for reset button
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,7 +40,7 @@ public class ResetActivity extends AppCompatActivity {
 
 
                     String emailAddress = emailField.getText().toString();
-
+                    // send reset mail using Firebase
                     auth.sendPasswordResetEmail(emailAddress)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -56,6 +58,7 @@ public class ResetActivity extends AppCompatActivity {
         });
 
         Button loginPageBtn = findViewById(R.id.loginPage);
+        // starts LoginActivity intent
         loginPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,10 +69,11 @@ public class ResetActivity extends AppCompatActivity {
 
 
     }
+    // checks if email is valid
     boolean isEmailValid(String email) {   // checks if email is of invalid format
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
+    // checks if all input fields are filled
     boolean areFieldsFilled(TextView emailField) { // checks if all the fields are filled and valid
         Boolean filledFields = true; // if all fields are filled
 

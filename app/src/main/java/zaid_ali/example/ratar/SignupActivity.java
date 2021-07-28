@@ -34,7 +34,7 @@ public class SignupActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // getting user input fields
                 TextView usernameField = findViewById(R.id.userField);
                 TextView emailField = findViewById(R.id.emailField);
                 TextView passField = findViewById(R.id.passField);
@@ -45,11 +45,12 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (areFieldsFilled(usernameField, emailField, passField)) { // if all the fields are filled
 
-
+                    // signs in user with firebase
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                    // if user is valid
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_SHORT).show();
@@ -82,11 +83,12 @@ public class SignupActivity extends AppCompatActivity {
         });
 
     }
-
+    // check if an email is valid
     boolean isEmailValid(String email) {   // checks if email is of invalid format
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    // check if all input fields are filled
     boolean areFieldsFilled(TextView userField, TextView emailField, TextView passField) { // checks if all the fields are filled and valid
         Boolean filledFields = true; // if all fields are filled
 

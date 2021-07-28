@@ -51,7 +51,7 @@ public class ForumFragment extends Fragment {
 //                        Toast.LENGTH_SHORT).show();
 //            }
 //        });
-
+        //get forum posts from firebase
         mReference=mDatabase.getReference("message");
         posts=new ArrayList<>();
         adapter=new PostAdapter(getContext(),R.layout.problem,posts);
@@ -123,19 +123,4 @@ public class ForumFragment extends Fragment {
 //
 //    @Nullable
 //    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View ForumView = inflater.inflate(R.layout.activity_post_list,null);
-////        openForum();
 //
-//        Intent intent=new Intent(getActivity(),PostListActivity.class);
-//        startActivity(intent);
-//        return ForumView;
-//
-//    }
-//
-//    public void openForum(){
-//        Intent intent=new Intent(getActivity(),PostListActivity.class);
-//        startActivity(intent);
-//    }
-//
-//}

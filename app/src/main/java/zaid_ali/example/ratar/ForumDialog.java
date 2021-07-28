@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import zaid_ali.example.ratar.R;
 
+
+// dialog on opening of forum fragment
 public class ForumDialog{
 
     public void showDialog(Activity activity, String msg){
@@ -21,6 +23,8 @@ public class ForumDialog{
         text.setText(msg);
 
         Button dialogButton = (Button) dialog.findViewById(R.id.btn_dialog);
+
+        // closes the dialog box
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

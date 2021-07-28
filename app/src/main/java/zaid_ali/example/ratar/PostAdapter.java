@@ -18,6 +18,7 @@ public class PostAdapter extends ArrayAdapter<Posts> {
 //    private int id;
 //    private String title;
 //    private String body;
+    //Adapter for posts list
     int resourceId;
     public PostAdapter(Context context,int textViewResourceId,
                        List<Posts> objects) {
